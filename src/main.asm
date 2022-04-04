@@ -1,4 +1,3 @@
-[org 100h]
 [bits 16]
 
 section .text
