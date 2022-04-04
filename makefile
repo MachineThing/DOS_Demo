@@ -8,7 +8,7 @@ LD=ld86
 # Flags
 CCFLAGS=-ansi -0
 ASFLAGS=
-LDFLAGS=-0 -d -s -T0x100
+LDFLAGS=-0 -d -s -T0x100 -M
 # Paths
 SRC=./src
 CCFILES=$(shell $(FIND) "*.c")
