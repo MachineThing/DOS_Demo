@@ -8,7 +8,7 @@ LD=ld86
 # Flags
 CCFLAGS=-ansi -0
 ASFLAGS=
-LDFLAGS=-0 -d -s -T0x100 -M
+LDFLAGS=-0 -d -s -T0x100
 # Paths
 SRC=./src
 CCFILES=$(shell $(FIND) "*.c")
@@ -34,4 +34,4 @@ clean:
 	$(RM) $(shell $(FIND) "*.o") $(KERN) $(KERNOBJ) $(BOOT) $(BIN)
 
 run: $(BIN)
-	dosbox-x $(BIN)
+	dosbox-x $(BIN) -conf dosbox.conf
