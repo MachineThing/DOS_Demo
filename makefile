@@ -6,7 +6,7 @@ CC=bcc
 AS=nasm
 LD=ld86
 # Flags
-CCFLAGS=-ansi -0
+CCFLAGS=-ansi -W -0
 ASFLAGS=
 LDFLAGS=-0 -d -s -T0x100
 # Paths
