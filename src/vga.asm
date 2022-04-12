@@ -14,9 +14,12 @@ _mode_set:
   ret
 
 _plot_pixel:
+  push bp
+  mov bp, sp
   mov ah, 0ch
-  mov al, 14
-  mov cx, 5
-  mov dx, 5
+  mov al, [bp + 8]  ; Color
+  mov dx, [bp + 6]  ; Y coord
+  mov cx, [bp + 4]  ; X coord
   int 10h
+  pop bp
   ret
