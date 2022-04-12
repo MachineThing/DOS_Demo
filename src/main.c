@@ -1,5 +1,4 @@
 int main() {
-  char* myMessage = "Hello from C!\n\r\0";
-  puts(myMessage);
+  mode_set(0x13);
   return 0;
 }
