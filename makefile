@@ -5,10 +5,12 @@ FIND=find -name
 CC=bcc
 AS=nasm
 LD=ld86
+DB=dosbox-x
 # Flags
 CCFLAGS=-ansi -W -0
 ASFLAGS=
 LDFLAGS=-0 -d -s -T0x100
+DBFLAGS=-conf dosbox.conf -fastlaunch
 # Paths
 SRC=./src
 CCFILES=$(shell $(FIND) "*.c")
@@ -34,4 +36,7 @@ clean:
 	$(RM) $(shell $(FIND) "*.o") $(KERN) $(KERNOBJ) $(BOOT) $(BIN)
 
 run: $(BIN)
-	dosbox-x $(BIN) -conf dosbox.conf
+	$(DB) $^ $(DBFLAGS)
+
+debug: $(BIN)
+	$(DB) $^ $(DBFLAGS) -break-start
