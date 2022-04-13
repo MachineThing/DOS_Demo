@@ -17,9 +17,15 @@ _plot_pixel:
   push bp
   mov bp, sp
   mov ah, 0ch
-  mov al, [bp + 8]  ; Color
-  mov dx, [bp + 6]  ; Y coord
-  mov cx, [bp + 4]  ; X coord
-  int 10h
+  mov ax, [bp + 6]  ; Y coord
+  mov bx, 320
+  mul bx
+  add ax, [bp + 4]  ; X coord
+
+  mov si, 0A000h
+  mov es, si
+  mov si, ax
+  mov ax, [bp + 8]  ; Color
+  mov [es:si], ax
   pop bp
   ret
