@@ -1,0 +1,8 @@
+*               text  eol=lf    encoding=utf-8
+res/credit.txt  text  eol=crlf  encoding=cp437
+*.bmp           binary
+*.xcf           binary
+
+# Gitignored files
+demo.com        binary
+*.o             binary
