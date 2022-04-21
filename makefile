@@ -8,8 +8,8 @@ LD=ld86
 DB=dosbox-x
 # Flags
 CCFLAGS=-ansi -W -0
-ASFLAGS=
-LDFLAGS=-0 -d -s -T0x100
+ASFLAGS=-f as86
+LDFLAGS=-0 -d -T0x100
 DBFLAGS=-conf dosbox.conf -fastlaunch
 # Paths
 SRC=./src
@@ -30,7 +30,7 @@ $(BIN): $(OBJ)
 	$(CC) $(CCFLAGS) -c $< -o $*.o
 
 .asm.o:
-	$(AS) -f as86 $(ASFLAGS) $< -o $*.o
+	$(AS) $(ASFLAGS) $< -o $*.o
 
 clean:
 	$(RM) $(shell $(FIND) "*.o") $(KERN) $(KERNOBJ) $(BOOT) $(BIN)
