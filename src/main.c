@@ -1,5 +1,5 @@
 int main() {
-  mode_set(0x13);
+  mode_x();
   plot_pixel(10, 10, 14);
   plot_pixel(15, 10, 14);
   plot_pixel(10, 11, 14);
@@ -15,5 +15,6 @@ int main() {
   while (1==1) {
     /* code */
   }
+  mode_text();
   return 0;
 }

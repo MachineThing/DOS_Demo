@@ -1,7 +1,8 @@
 [bits 16]
 
 section .text
-global _mode_set
+global _mode_x
+global _mode_text
 global _plot_pixel
 
 ; VGA Memory
@@ -25,16 +26,37 @@ MAP_MASK      equ 0x02
   out dx, al
 %endmacro
 
-_mode_set:
-  push bp
-  mov bp, sp
+_mode_x:
+  ; Before we can get to mode X we have to be in mode 13h first
   mov ah, 0
-  mov al, [bp + 4]
+  mov al, 13h
   int 10h
-  pop bp
+
+  ; Turn off chain-4 mode
+  outb SC_INDEX, MEMORY_MODE
+  outb SC_DATA, 0x06
+
+  ; TODO: Clear screen here
+  ; Turn off long mode
+  outb CRTC_INDEX, UNDERLINE_LOC
+  outb CRTC_DATA, 0x00
+
+  ; Turn on byte mode
+  outb CRTC_INDEX, MODE_CONTROL
+  outb CRTC_DATA, 0xe3
+
+  ret
+
+_mode_text:
+  mov ah, 0
+  mov al, 03h
+  int 10h
   ret
 
 _plot_pixel:
+  ; [bp + 4]  - X coord
+  ; [bp + 6]  - Y coord
+  ; [bp + 8]  - Color
   push bp
   mov bp, sp
 
