@@ -26,6 +26,13 @@ MAP_MASK      equ 0x02
   out dx, al
 %endmacro
 
+%macro outw 2
+  ; This macro eats up the DX and AX registers
+  mov dx, %1
+  mov ax, %2
+  out dx, ax
+%endmacro
+
 _mode_x:
   ; Before we can get to mode X we have to be in mode 13h first
   mov ah, 0
@@ -59,6 +66,14 @@ _plot_pixel:
   ; [bp + 8]  - Color
   push bp
   mov bp, sp
+
+  outb SC_INDEX, MAP_MASK
+  mov cl, [bp + 4]  ; Set CL register to X coord
+  and cl, 3         ; CL & 3
+  mov al, 1
+  shl al, cl        ; Shift 1 by CL
+  mov dx, SC_DATA
+  out dx, al        ; Set plane to AL
 
   mov ax, [bp + 6]  ; Y coord
   mov bx, 320
