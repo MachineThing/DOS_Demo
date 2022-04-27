@@ -67,6 +67,7 @@ _plot_pixel:
   push bp
   mov bp, sp
 
+  ; Set page
   outb SC_INDEX, MAP_MASK
   mov cl, [bp + 4]  ; Set CL register to X coord
   and cl, 3         ; CL & 3
@@ -75,14 +76,26 @@ _plot_pixel:
   mov dx, SC_DATA
   out dx, al        ; Set plane to AL
 
+  ; Get coords
   mov ax, [bp + 6]  ; Y coord
-  mov bx, 320
-  mul bx
-  add ax, [bp + 4]  ; X coord
+  mov cl, 6
+  shl ax, cl        ; Y << 6
+  mov bx, ax
 
+  mov ax, [bp + 6]  ; Y coord
+  mov cl, 4
+  shl ax, cl        ; Y << 4
+  add bx, ax
+
+  add ax, [bp + 4]  ; X coord
+  mov cl, 2
+  shr ax, cl        ; X << 2
+  add bx, ax
+
+  ; Plot the pixel
   mov si, VGA_MEMORY
   mov es, si
-  mov si, ax
+  mov si, bx
   mov ax, [bp + 8]  ; Color
   mov [es:si], ax
   pop bp

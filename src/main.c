@@ -1,5 +1,11 @@
 int main() {
+  int coord = 0;
+
   mode_x();
+  while (coord < 10) {
+    plot_pixel(coord, coord, 12);
+    coord++;
+  }
   plot_pixel(10, 10, 14);
   plot_pixel(15, 10, 14);
   plot_pixel(10, 11, 14);
