@@ -16,15 +16,19 @@ SRC=./src
 CCFILES=$(shell $(FIND) "*.c")
 ASFILES=$(shell $(FIND) "*.asm")
 OBJ=$(patsubst %.c,%.o,$(CCFILES)) $(patsubst %.asm,%.o,$(ASFILES))
-BIN=demo.com
+BUILD=build
+BIN=$(BUILD)/demo.com
 
 .SUFFIXES: .o .c .asm
 .PHONY: all clean run
 
-all: $(BIN)
+all: $(BIN) $(BUILD)
 
-$(BIN): $(OBJ)
-	$(LD) $(LDFLAGS) $^ -o $@
+$(BIN): $(OBJ) $(BUILD)
+	$(LD) $(LDFLAGS) $(OBJ) -o $@
+
+$(BUILD):
+	cp -r res $(BUILD)
 
 .c.o:
 	$(CC) $(CCFLAGS) -c $< -o $*.o
@@ -33,7 +37,7 @@ $(BIN): $(OBJ)
 	$(AS) $(ASFLAGS) $< -o $*.o
 
 clean:
-	$(RM) $(shell $(FIND) "*.o") $(KERN) $(KERNOBJ) $(BOOT) $(BIN)
+	$(RM) $(shell $(FIND) "*.o") $(BUILD)
 
 run: $(BIN)
 	$(DB) $^ $(DBFLAGS)
