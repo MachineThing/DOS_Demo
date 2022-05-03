@@ -1,7 +1,7 @@
 int coord = 0;
 
 int main() {
-  mode_set(0x13);
+  /*mode_set(0x13);
 
   while (coord < 200) {
     plot_pixel(coord, coord, 12);
@@ -20,10 +20,9 @@ int main() {
   plot_pixel(12, 15, 14);
   plot_pixel(13, 15, 14);
   plot_pixel(14, 15, 14);
-  while (1==1) {
-    /* code */
-  }
-  
+  while (1==1) {}*/
+
   mode_set(0x03);
+  fcb("__SPLASH", "BMP");
   return 0;
 }
