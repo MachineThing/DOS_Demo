@@ -23,6 +23,6 @@ int main() {
   while (1==1) {}*/
 
   mode_set(0x03);
-  fcb("__SPLASH", "BMP");
+  file("CREDIT.TXT\0");
   return 0;
 }
