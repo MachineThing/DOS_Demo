@@ -1,5 +1,6 @@
 int coord = 0;
-char credit_file[99];
+
+char credit_file[144];
 
 int main() {
   /*mode_set(0x13);
@@ -24,7 +25,7 @@ int main() {
   while (1==1) {}*/
 
   mode_set(0x03);
-  file("CREDIT.TXT\0", 99, credit_file);
+  file("CREDIT.TXT\0", 144, credit_file);
   puts(credit_file);
   return 0;
 }

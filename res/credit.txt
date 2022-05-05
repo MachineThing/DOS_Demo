@@ -1,4 +1,6 @@
-Credit page here, Mason please add in details
-
  Dos Demo 
 ú Made by Mason Fisher 2022
+
+ Resources I used 
+ú F‚lix Cloutier's x86 instruction reference
+ú Ralf Brown's Interrupt List
