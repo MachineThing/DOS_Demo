@@ -34,6 +34,7 @@ $(BUILD):
 	# I wish there is a better way to do this (there is probably a way through but makefiles are a pain)
 	mkdir $(BUILD)
 	for i in $(RESFILES); do cp $$i build/$$(basename $$i | ./filename.py); done
+	./bmp2sif.py img/splash.bmp $(BUILD)/SPLASH.SIF
 
 .c.o:
 	$(CC) $(CCFLAGS) -c $< -o $@
