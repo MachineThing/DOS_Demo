@@ -22,10 +22,13 @@ int main() {
     splash_c = splash_file[7];
 
     // TODO: Set palette
+    for (color_i = 0; color_i < splash_c; color_i++) {
+      set_dac(color_i, (char)splash_file[8+color_i*3], (char)splash_file[9+color_i*3], (char)splash_file[10+color_i*3]);
+    }
 
     for (pixel_y = 0; pixel_y < splash_y; pixel_y++) {
       for (pixel_x = 0; pixel_x < splash_x; pixel_x++) {
-        plot_pixel(pixel_x, pixel_y, splash_file[7+splash_c*3+pixel_y*pixel_x+pixel_x]);
+        plot_pixel(pixel_x, pixel_y, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
       }
     }
 

@@ -21,7 +21,7 @@ with Image.open(arg_in) as org_im:
     for y in range(height):
         for x in range(width):
             r, g, b = im.getpixel((x, y))
-            colval = (r, g, b)
+            colval = (r>>2, g>>2, b>>2) # 6-bit VGA
             if colval not in colors:
                 avail_colors = avail_colors + 1
                 colors.append(colval)
