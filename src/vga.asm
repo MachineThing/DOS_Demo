@@ -42,8 +42,8 @@ _set_dac:
   mov ax, 1010h
   mov bx, [bp + 4]  ; Register number
   mov dh, [bp + 6]  ; Red
-  mov cl, [bp + 7]  ; Blue
   mov ch, [bp + 8]  ; Green
+  mov cl, [bp + 10] ; Blue
   int 10h
 
   pop bp
