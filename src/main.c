@@ -28,7 +28,10 @@ int main() {
 
     for (pixel_y = 0; pixel_y < splash_y; pixel_y++) {
       for (pixel_x = 0; pixel_x < splash_x; pixel_x++) {
-        plot_pixel(pixel_x, pixel_y, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
+        plot_pixel(pixel_x*2, pixel_y*2, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
+        plot_pixel(pixel_x*2+1, pixel_y*2, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
+        plot_pixel(pixel_x*2, pixel_y*2+1, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
+        plot_pixel(pixel_x*2+1, pixel_y*2+1, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
       }
     }
 
