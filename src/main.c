@@ -32,10 +32,7 @@ int main() {
     for (pixel_y = 0; pixel_y < splash_y; pixel_y++) {
       for (pixel_x = 0; pixel_x < splash_x; pixel_x++) {
         fread(file_handle, 1, file_buff);
-        plot_pixel(pixel_x*2, pixel_y*2, file_buff[0]);
-        plot_pixel(pixel_x*2+1, pixel_y*2, file_buff[0]);
-        plot_pixel(pixel_x*2, pixel_y*2+1, file_buff[0]);
-        plot_pixel(pixel_x*2+1, pixel_y*2+1, file_buff[0]);
+        plot_pixel(pixel_x, pixel_y, file_buff[0]);
       }
     }
 
