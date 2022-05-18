@@ -1,9 +1,12 @@
-int coord = 0;
-
-char file_buff[10];
-int file_handle;
+// Variables
+// Errors
 char err_splash[22] = "Non-vaild SIF file\r\n\0";
 
+// File
+char file_buff[10];
+int file_handle;
+
+// Splash stuff
 int splash_x;
 int splash_y;
 char splash_c;
@@ -12,9 +15,12 @@ int color_i;
 int pixel_x;
 int pixel_y;
 
+// Code
 int main() {
+  // Go to VGA (13h) mode
   mode_set(0x13);
 
+  // Open file and make sure it's a vaild SIF (Simple Image Format) file
   file_handle = fopen("SPLASH.SIF\0");
   fread(file_handle, 8, file_buff);
 
@@ -25,18 +31,22 @@ int main() {
 
     // TODO: Set palette
     for (color_i = 0; color_i < splash_c; color_i++) {
+      // Get RGB values and set a DAC register to that
       fread(file_handle, 3, file_buff);
       set_dac(color_i, (char)file_buff[0], (char)file_buff[1], (char)file_buff[2]);
     }
 
     for (pixel_y = 0; pixel_y < splash_y; pixel_y++) {
       for (pixel_x = 0; pixel_x < splash_x; pixel_x++) {
+        // Read a byte from the file and plot it to the screen
         fread(file_handle, 1, file_buff);
         plot_pixel(pixel_x, pixel_y, file_buff[0]);
       }
     }
 
   } else {
+    // Close file and go back to text mode
+    fclose(file_handle);
     mode_set(0x03);
     puts(err_splash);
     return 1;
