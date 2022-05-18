@@ -35,7 +35,6 @@ $(BUILD):
 	mkdir $(BUILD)
 	for i in $(RESFILES); do cp $$i build/$$(basename $$i | ./filename.py); done
 	./bmp2sif.py img/splash.bmp $(BUILD)/SPLASH.SIF
-	./bmp2sif.py img/calibrte.bmp $(BUILD)/CALIBRTE.SIF
 
 .c.o:
 	$(CC) $(CCFLAGS) -c $< -o $@
