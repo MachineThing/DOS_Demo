@@ -1,6 +1,7 @@
 int coord = 0;
 
-char splash_file[16773];
+char file_buff[10];
+int file_handle;
 char err_splash[22] = "Non-vaild SIF file\r\n\0";
 
 int splash_x;
@@ -14,24 +15,27 @@ int pixel_y;
 int main() {
   mode_set(0x13);
 
-  file("SPLASH.SIF\0", 16773, splash_file);
+  file_handle = fopen("SPLASH.SIF\0");
+  fread(file_handle, 8, file_buff);
 
-  if (splash_file[0] == 'S' && splash_file[1] == 'I' && splash_file[2] == 'F') {
-    splash_x = splash_file[3] + (splash_file[4] << 8);
-    splash_y = splash_file[5] + (splash_file[6] << 8);
-    splash_c = splash_file[7];
+  if (file_buff[0] == 'S' && file_buff[1] == 'I' && file_buff[2] == 'F') {
+    splash_x = file_buff[3] + (file_buff[4] << 8);
+    splash_y = file_buff[5] + (file_buff[6] << 8);
+    splash_c = file_buff[7];
 
     // TODO: Set palette
     for (color_i = 0; color_i < splash_c; color_i++) {
-      set_dac(color_i, (char)splash_file[8+color_i*3], (char)splash_file[9+color_i*3], (char)splash_file[10+color_i*3]);
+      fread(file_handle, 3, file_buff);
+      set_dac(color_i, (char)file_buff[0], (char)file_buff[1], (char)file_buff[2]);
     }
 
     for (pixel_y = 0; pixel_y < splash_y; pixel_y++) {
       for (pixel_x = 0; pixel_x < splash_x; pixel_x++) {
-        plot_pixel(pixel_x*2, pixel_y*2, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
-        plot_pixel(pixel_x*2+1, pixel_y*2, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
-        plot_pixel(pixel_x*2, pixel_y*2+1, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
-        plot_pixel(pixel_x*2+1, pixel_y*2+1, splash_file[(8+splash_c*3)+pixel_y*splash_x+pixel_x]);
+        fread(file_handle, 1, file_buff);
+        plot_pixel(pixel_x*2, pixel_y*2, file_buff[0]);
+        plot_pixel(pixel_x*2+1, pixel_y*2, file_buff[0]);
+        plot_pixel(pixel_x*2, pixel_y*2+1, file_buff[0]);
+        plot_pixel(pixel_x*2+1, pixel_y*2+1, file_buff[0]);
       }
     }
 
@@ -41,6 +45,7 @@ int main() {
     return 1;
   }
 
+  fclose(file_handle);
   while (1==1) {}
   mode_set(0x03);
 
