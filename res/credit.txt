@@ -1,6 +1,21 @@
- Dos Demo 
+ DOS DEMO 
 ú Made by Mason Fisher 2022
+ú Mostly made with C, Assembly, and Love
+
+ú MIT License
+ú https://github.com/MachineThing/DOS_Demo
 
  Resources I used 
 ú F‚lix Cloutier's x86 instruction reference
 ú Ralf Brown's Interrupt List
+ú Stack Overflow
+
+ Special Thanks 
+ú mills32 (inspiration)
+
+ (Very) Special Thanks 
+ú Family (pets included)
+ú That dog in the splash image, Hailey (RIP)
+ú The wonderful people that helped me with my life 
+
+ Thanks for watching this demo! 
