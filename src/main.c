@@ -1,6 +1,7 @@
 // Variables
-// Errors
+// Strings
 char err_splash[22] = "Non-vaild SIF file\r\n\0";
+char ending_str[11] = "See ya!\r\n\0";
 
 // File
 char file_buff[10];
@@ -55,7 +56,24 @@ int main() {
 
   fclose(file_handle);
   sleep(91); // 18.2 * 5 seconds = 91
+  for (color_i = 0; color_i < splash_c; color_i++) {
+    // Set DAC registers to 0
+    set_dac(color_i, 0, 0, 0);
+    sleep(1);
+  }
+  sleep(17);
 
   mode_set(0x03);
+  file_handle = fopen("CREDIT.TXT\0");
+  file_buff[0] = 1; // Just in case
+  while (file_buff[0] != 0) {
+    sleep(1);
+    fread(file_handle, 1, file_buff);
+    file_buff[1] = 0;
+    puts(file_buff);
+  }
+  sleep(18);
+  puts(ending_str);
+
   return 0;
 }

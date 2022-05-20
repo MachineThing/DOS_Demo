@@ -16,7 +16,6 @@ CCFILES=$(shell find -name "*.c")
 ASFILES=$(shell find -name "*.asm")
 OBJ=$(patsubst %.c,%.o,$(CCFILES)) $(patsubst %.asm,%.o,$(ASFILES))
 RES=res
-RESFILES=$(shell find $(RES)/ -type f)
 BUILD=build
 COPYCMD=echo $$i | ./filename.py
 BUILDFILES=$(patsubst $(RES)/%,$(BUILD)/%,$(shell for i in $(RESFILES); do $(COPYCMD); done))
@@ -31,10 +30,10 @@ $(BIN): $(OBJ) $(BUILD)
 	$(LD) $(LDFLAGS) $(OBJ) -o $@
 
 $(BUILD):
-	# I wish there is a better way to do this (there is probably a way through but makefiles are a pain)
 	mkdir $(BUILD)
-	for i in $(RESFILES); do cp $$i build/$$(basename $$i | ./filename.py); done
-	./bmp2sif.py img/splash.bmp $(BUILD)/SPLASH.SIF
+	cp res/credit.txt $(BUILD)/CREDIT.TXT
+	echo -ne "\0" >> $(BUILD)/CREDIT.TXT
+	./bmp2sif.py res/splash.bmp $(BUILD)/SPLASH.SIF
 
 .c.o:
 	$(CC) $(CCFLAGS) -c $< -o $@
