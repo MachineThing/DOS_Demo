@@ -17,6 +17,7 @@ int pixel_y;
 
 // Code
 int main() {
+  clock_init(); // Initialize clock
   // Go to VGA (13h) mode
   mode_set(0x13);
 
@@ -53,8 +54,8 @@ int main() {
   }
 
   fclose(file_handle);
-  while (1==1) {}
-  mode_set(0x03);
+  sleep(91); // 18.2 * 5 seconds = 91
 
+  mode_set(0x03);
   return 0;
 }
