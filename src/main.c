@@ -20,7 +20,7 @@ int pixel_y;
 int main() {
   clock_init(); // Initialize clock
   // Go to VGA (13h) mode
-  mode_set(0x13);
+  mode_x();
 
   // Open file and make sure it's a vaild SIF (Simple Image Format) file
   file_handle = fopen("SPLASH.SIF\0");
@@ -49,7 +49,7 @@ int main() {
   } else {
     // Close file and go back to text mode
     fclose(file_handle);
-    mode_set(0x03);
+    mode_text();
     puts(err_splash);
     return 1;
   }
@@ -63,7 +63,7 @@ int main() {
   }
   sleep(17);
 
-  mode_set(0x03);
+  mode_text();
   file_handle = fopen("CREDIT.TXT\0");
   file_buff[0] = 1; // Just in case
   while (file_buff[0] != 0) {
